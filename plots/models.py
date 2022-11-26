@@ -27,3 +27,20 @@ class Plot(models.Model):
     
     def __str__(self) -> str:
         return str(self.user.phone) + str(self.reqid)
+
+
+class BookChannel(models.Model):
+    plot = models.ForeignKey(
+        Plot, 
+        on_delete=models.CASCADE, 
+        related_name='book_channels', 
+        unique_for_date='date'
+        )
+    date = models.DateField()
+
+    class Meta:
+        verbose_name = 'Бронь канала'
+        verbose_name_plural = 'Бронь каналов'
+
+    def __str__(self) -> str:
+        return str(self.plot.reqid) + str(self.date)

@@ -5,6 +5,7 @@ from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, Spec
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api-plot/', include('plots.urls')),
     path('api-user/', include('users.urls')),
     path('api-auth/', include('rest_framework.urls')),
     # Optional UI:
