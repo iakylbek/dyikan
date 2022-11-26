@@ -10,4 +10,4 @@ class CropAdmin(admin.ModelAdmin):
 
 @admin.register(Plot)
 class PlotAdmin(admin.ModelAdmin):
-    list_display = ('id', 'req_id')
+    list_display = ('id', 'reqid')

@@ -1,8 +1,8 @@
-from django.contrib.auth.models import (AbstractBaseUser, BaseUserManager, PermissionsMixin)
-import uuid
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django.core.validators import RegexValidator
+from django.contrib.auth.models import (AbstractBaseUser, BaseUserManager, PermissionsMixin)
+from rest_framework_simplejwt.tokens import RefreshToken
 
 
 phone_validator = RegexValidator(regex=r'^996\d{9}$', message='Передайте действительный номер телефона в формате 996ХХХХХХХХХ')
@@ -53,3 +53,10 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return str(self.phone)
+    
+    def get_tokens(self):
+        refresh = RefreshToken.for_user(self)
+        return {
+            'refresh': str(refresh), 
+            'access': str(refresh.access_token)
+            }
