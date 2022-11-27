@@ -38,7 +38,7 @@ class PlotInfoSerializer(serializers.ModelSerializer):
         return volume
 
     def get_book_price(self, obj) -> int:
-        return self.volume * 0.5
+        return self.volume * 0.5 * obj.book_channels.count()
 
 
 class CropListSerializer(serializers.ModelSerializer):
