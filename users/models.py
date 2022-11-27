@@ -54,7 +54,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     def __str__(self):
         return str(self.phone)
     
-    def get_tokens(self):
+    def get_tokens(self) -> dict:
         refresh = RefreshToken.for_user(self)
         return {
             'refresh': str(refresh), 

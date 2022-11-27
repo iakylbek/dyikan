@@ -24,6 +24,21 @@ class PlotListSerializer(serializers.ModelSerializer):
         fields = ('id', 'reqid', 'address', 'land_area')
 
 
+class PlotInfoSerializer(serializers.ModelSerializer):
+    water_volume = serializers.SerializerMethodField()
+    book_price = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Plot
+        fields = ('id', 'reqid', 'address', 'water_volume', 'book_price')
+    
+    def get_water_volume(self, obj) -> float:
+        return 1
+
+    def get_book_price(self, obj) -> int:
+        return 1
+
+
 class CropListSerializer(serializers.ModelSerializer):
 
     class Meta:
