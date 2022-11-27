@@ -15,8 +15,16 @@ class Crop(models.Model):
 
 
 class Plot(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='plots')
-    crop = models.ForeignKey(Crop, on_delete=models.SET_NULL, null=True)
+    user = models.ForeignKey(
+        User, 
+        on_delete=models.CASCADE, 
+        related_name='plots'
+        )
+    crop = models.ForeignKey(
+        Crop, 
+        on_delete=models.SET_NULL, 
+        null=True
+        )
     reqid = models.CharField('Регистрационный номер земельного участка', max_length=32, unique=True)
     address = models.CharField('Адрес', max_length=256)
     land_area = models.IntegerField('Площадь земли')
