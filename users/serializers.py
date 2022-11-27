@@ -40,12 +40,11 @@ class UserRegisterSerializer(serializers.ModelSerializer):
 class UserLoginSerializer(serializers.ModelSerializer):
     phone = serializers.CharField(validators=[phone_validator])
     password = serializers.CharField(min_length=8, write_only=True)
-    password_confirm = serializers.CharField(min_length=8, write_only=True)
     tokens = serializers.SerializerMethodField(read_only=True)
 
     class Meta:
         model = User
-        fields = ('id', 'phone', 'password', 'password_confirm', 'tokens')
+        fields = ('id', 'phone', 'password', 'tokens')
         read_only_fields = ('id', )
     
     def get_tokens(self, obj):
@@ -53,14 +52,11 @@ class UserLoginSerializer(serializers.ModelSerializer):
         return user.get_tokens()
     
     def validate(self, attrs):
-        password_confirm = attrs.get('password_confirm')
         password = attrs.get('password')
         phone = attrs.get('phone')
 
         user = auth.authenticate(phone=phone, password=password)
 
-        if password_confirm != password:
-            raise AuthenticationFailed('Пароли не совпадают!')
         if not user:
             raise AuthenticationFailed('Неверный номер телефона или пароль')
         if not user.is_active:
