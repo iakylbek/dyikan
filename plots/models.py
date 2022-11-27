@@ -28,7 +28,7 @@ class Plot(models.Model):
         )
     reqid = models.CharField('Регистрационный номер земельного участка', max_length=32, unique=True)
     address = models.CharField('Адрес', max_length=256)
-    land_area = models.IntegerField('Площадь земли')
+    land_area = models.IntegerField('Площадь земли в гектарах')
 
     class Meta:
         verbose_name = 'Участок'

@@ -25,18 +25,20 @@ class PlotListSerializer(serializers.ModelSerializer):
 
 
 class PlotInfoSerializer(serializers.ModelSerializer):
-    water_volume = serializers.SerializerMethodField()
-    book_price = serializers.SerializerMethodField()
+    water_volume = serializers.SerializerMethodField(read_only=True)
+    book_price = serializers.SerializerMethodField(read_only=True)
 
     class Meta:
         model = Plot
-        fields = ('id', 'reqid', 'address', 'water_volume', 'book_price')
-    
+        fields = ('id', 'reqid', 'address', 'water_volume', 'book_price', 'land_area')
+
     def get_water_volume(self, obj) -> float:
-        return 1
+        volume = obj.land_area * obj.crop.water_consumption
+        self.volume = volume
+        return volume
 
     def get_book_price(self, obj) -> int:
-        return 1
+        return self.volume * 0.5
 
 
 class CropListSerializer(serializers.ModelSerializer):
