@@ -10,11 +10,12 @@ class UserRegisterSerializer(serializers.ModelSerializer):
     reqid = serializers.IntegerField()
     address = serializers.CharField(max_length=256)
     land_area = serializers.IntegerField()
+    crop_id = serializers.IntegerField()
 
     class Meta:
         model = User
         fields = (
-            'id', 'phone', 'first_name', 'last_name', 'password', 'reqid', 'address', 'land_area'
+            'id', 'phone', 'first_name', 'last_name', 'password', 'reqid', 'address', 'land_area', 'crop_id'
             )
     
     def save(self, **kwargs):
@@ -32,7 +33,8 @@ class UserRegisterSerializer(serializers.ModelSerializer):
             user=user,
             reqid=vd.get('reqid'),
             address=vd.get('address'),
-            land_area=vd.get('land_area')
+            land_area=vd.get('land_area'),
+            crop_id=vd.get('crop_id')
         )
         return user
 

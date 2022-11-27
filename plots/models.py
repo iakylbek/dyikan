@@ -5,6 +5,7 @@ from users.models import User
 
 class Crop(models.Model):
     name = models.CharField('Культура', max_length=128)
+    water_consumption = models.IntegerField('Расход воды за 1га в кубометрах')
 
     def __str__(self) -> str:
         return str(self.name)
