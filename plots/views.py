@@ -1,7 +1,7 @@
 from rest_framework import generics, permissions
 
-from .models import Plot, BookChannel
-from .serializers import BookChannelListSerializer, BookChannelCreateSerializer, PlotListSerializer
+from .models import Plot, BookChannel, Crop
+from .serializers import BookChannelListSerializer, BookChannelCreateSerializer, PlotListSerializer, CropListSerializer
 from users.models import User
 
 
@@ -25,3 +25,9 @@ class PlotListView(generics.ListAPIView):
 
     def get_queryset(self):
         return Plot.objects.filter(user=self.request.user)
+
+
+class CropListView(generics.ListAPIView):
+    queryset = Crop.objects.all()
+    serializer_class = CropListSerializer
+    permission_classes = [permissions.AllowAny]
